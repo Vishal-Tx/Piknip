@@ -1,0 +1,157 @@
+<% layout("layouts/boilerplate") %>
+
+
+  <div class="row">
+    <div class="col mb-3">
+      <div class="mb-3">
+        <% if(currentUser &&user._id.equals(currentUser._id)) {%>
+          <h1>Hello <%= _.upperFirst(user.username)%>
+          </h1>
+          <% } else{%>
+            <h1>
+              <%= _.upperFirst(user.username)%>'s Profile.
+            </h1>
+            <% } %>
+      </div>
+      <div class="p-3">
+        <p>First Name- <%= user.firstname %>
+        </p>
+        <p>Lirst Name- <%= user.lastname %>
+        </p>
+      </div>
+      <% if(currentUser && user._id.equals(currentUser._id)){ %>
+      <form class="d-inline" action="/users/<%= user._id %>?_method=Delete" method="post">
+        <button class="btn btn-danger">Delete Account</button>
+    </form>
+    <% } %> 
+    </div>
+    <div class="col">
+      <div class="mb-3 border border-secondary form-check-inline p-auto">
+        <img src="<%= user.avatar.profilePic %>" alt="">
+
+      </div>
+
+      <div class="mb-3">
+        <% if(currentUser &&user._id.equals(currentUser._id)) {%>
+          <form action="/users/<%=user._id%>?_method=PUT" method="post" class="validated-form newAvatarForm" novalidate
+            enctype="multipart/form-data">
+            <div class="form-check-inline border border-dark rounded px-1">
+              <div class="form-check-inline">
+                <input type="checkbox" name="filename" id="avatar" class="" value="<%=user.avatar.filename%>">
+              </div>
+              <label for="avatar">Delete?</label>
+            </div>
+
+            <div class="avatarChangeUploader d-none carousel-fade">
+              <div class="mb-3 ">
+                <label for="avatarChange" class="form-label">Upload Avatar.</label>
+                <p id="status" class="d-none my-0 text-danger failed-shake">Please Select a rating.</p>
+                <input class="form-control imageInputField" type="file" id="avatarChange " name="newAvatar" required>
+              </div>
+
+              <div class="mb-3">
+                <button class="btn btn-info avatarChangeButton d-none" type="submit">Change Image</button>
+              </div>
+            </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <h2>
+        <%= _.upperFirst(user.username)%>'s Picnicspots.
+      </h2>
+      <% for (let picnicspot of picnicspots) {%>
+        <ul>
+          <li><a class=" text-decoration-none text-success fw-bold" href="/picnicspots/<%=picnicspot.id %> ">
+              <%=picnicspot.title%>
+            </a></li>
+        </ul>
+
+        <% } %>
+    </div>
+
+  </div>
+
+
+
+
+
+  <!-- for some time later -->
+  <!-- <% if(currentUser &&user._id.equals(currentUser._id)) {%>
+    <form action="/picnicspots/?_method=PUT" method="post">
+      <div class="form-check-inline border border-dark rounded px-1">
+      <div class="form-check-inline ">
+        <input type="checkbox" name="filename" id="name" class="" value="<%=user.avatar.filename%>">
+      </div>
+        <label for="name">Edit Name</label>
+      </div>
+      
+
+      <div class=" ">
+        <div class="row g-3 mb-3 ">
+          <div class="col-md-6">
+            <label for="userFirstName" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="userFirstName" name="firstname" value="<%=user.firstname%>">
+            <div class="valid-feedback">
+              Looks Good!
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="userlastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="userlastName" name="lastname" value="<%=user.lastname%>">
+            <div class="valid-feedback">
+              Looks Good!
+            </div>
+          </div>
+        </div> -->
+  <!-- <% } %>  -->
+
+
+
+
+
+
+
+
+
+  <script>
+    const avatarRadioChecker = document.querySelector("#avatar");
+    const avatarChangeButton = document.querySelector('.avatarChangeButton')
+    const avatarChangeUloader = document.querySelector('.avatarChangeUploader')
+    const imageInputField = document.querySelector(".imageInputField")
+    avatarRadioChecker.addEventListener('change', function (e) {
+      if (avatarRadioChecker.checked) {
+        avatarChangeButton.classList.remove("d-none")
+        avatarChangeUloader.classList.remove("d-none")
+      } else {
+        avatarChangeButton.classList.add("d-none")
+        avatarChangeUloader.classList.add("d-none")
+      }
+    })
+
+
+
+
+
+
+
+            // if(defaultStarRating.checked){
+            //     reviewStatus.classList.remove("d-none")
+            //     reviewSubmitButton.classList.add("failed-shake")
+            //     reviewSubmitButton.classList.remove("btn-success")
+            //     reviewSubmitButton.classList.add("btn-danger")
+
+
+            //     event.preventDefault();
+            // }
+            // else{
+            //     reviewStatus.classList.add("d-none")
+            //     reviewSubmitButton.classList.remove("failed-shake")
+            // }
+
+
+  </script>
+
+  </form>
+
+  <% } %>

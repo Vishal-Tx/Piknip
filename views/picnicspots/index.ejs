@@ -1,0 +1,44 @@
+<% layout("layouts/boilerplate") %>
+<div id="cluster-map" ></div>
+  <h1>All PicnicSpots!</h1>
+
+  <% for(let picnicspot of picnicspots){%>
+    <div class="card mb-3">
+      <div class="row g-5">
+        <div class="col-md-4">
+<% if(picnicspot.images.length){ %> 
+          <img src="<%= picnicspot.images[0].url %> " class="img-fluid rounded-start" alt="..." style="height: 250px; width:100%">
+          <% }else{ %> 
+            <img src="https://res.cloudinary.com/dzmbgzot8/image/upload/v1657994985/Piknip/i8xjmbdd9ntzdz5kjvaj.jpg " class="img-fluid rounded-start" alt="..." style="height: 250px; width:100%">
+          <% } %> 
+            
+
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">
+              <%= picnicspot.title %>
+            </h5>
+            <p class="card-text">
+              <%= picnicspot.description %>
+            </p>
+            <p class="card-text"><small class="text-muted">
+                <%= picnicspot.location %>
+              </small></p>
+            <a href="/picnicspots/<%= picnicspot.id %>" class="btn btn-secondary">view <%=picnicspot.title%> </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <% } %>
+
+    <script>
+     const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
+      const picnicspots = {features: <%- JSON.stringify(picnicspots) %>}
+    
+  </script>
+
+
+    <script src="/javascripts/clusterMap.js"></script>

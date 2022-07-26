@@ -1,0 +1,67 @@
+<% layout("layouts/boilerplate") %>
+
+
+    <div class="row">
+        <h1 class="text-center">Edit Picnicspot</h1>
+        <div class="col-md-6 offset-md-3">
+            <form action="/picnicspots/<%= picnicspot.id %>?_method=PUT" method="post" novalidate class="validated-form"
+                enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input class="form-control" type="text" id="title" name="picnicspot[title]"
+                        placeholder="Enter title of picnicspot" value="<%= picnicspot.title %> " required
+                        autofocus="autofocus" />
+                    <div class="valid-feedback">Looks Good.</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="location" class="form-label">Location</label>
+                    <input class="form-control" type="text" id="location" name="picnicspot[location]"
+                        placeholder="Enter the location of picnicspot." value="<%= picnicspot.location %> " required />
+                    <div class="valid-feedback">Looks Good.</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="price" class="form-label">Picnicspot Price</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="price-label">$</span>
+                        <input type="text" class="form-control" placeholder="0.00" id="price" aria-label="price"
+                            name="picnicspot[price]" aria-describedby="price-label" value="<%= picnicspot.price %> "
+                            required />
+                        <div class="valid-feedback">Looks Good.</div>
+                    </div>
+                </div>
+
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control" type="text" id="description" name="picnicspot[description]"
+                        placeholder="Enter the description of picnicspot."
+                        required><%= picnicspot.description %> </textarea>
+                    <div class="valid-feedback">Looks Good.</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="image" class="form-label">Add more Image(s).</label>
+                    <input class="form-control" type="file" id="image" name="image" multiple>
+                </div>
+
+
+                <div class="mb-3">
+                    <% picnicspot.images.forEach((img, i)=>{%>
+                        <img src="<%=img.thumbnail%>" alt="" class="img-thumbnail">
+                        <div class="form-check-inline">
+                            <input type="checkbox" name="deleteImages[]" id="image-<%=i%>" value="<%=img.filename%>">
+                        </div>
+                        <label for="image-<%=i%>">Delete?</label>
+                        <% }) %>
+                </div>
+
+
+                <div class="mb-3">
+                    <button class="btn btn-info" type="submit">Update Picnicspot</button>
+                </div>
+            </form>
+            <a href="/picnicspots/<%= picnicspot.id %> " class="text-reset text-decoration-none">⇽ Back to Picnicpot</a>
+        </div>
+    </div>

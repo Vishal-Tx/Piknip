@@ -1,0 +1,177 @@
+<% layout("layouts/boilerplate") %>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/stars.css">
+
+
+
+<%// console.log("picnicspot*********####", picnicspot) %> 
+    <div class="row justify-content-center">
+        <div class="col-lg-4 col-md-10 col-sm-12 col-12">
+            
+<div id="picnicspotCarousel" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <% picnicspot.images.forEach((img, i) => {%>
+        <div class="carousel-item <%= i===0?"active":"" %> ">
+            <img src="<%=img.slideShow  %>" class="d-block w-100" alt="">
+          </div>
+   
+   
+    <% }) %> 
+    
+
+  </div>
+  <% if(picnicspot.images.length > 1){ %> 
+  <button class="carousel-control-prev" type="button" data-bs-target="#picnicspotCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#picnicspotCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+  <% } %> 
+</div>
+
+
+
+            <div class="card mb-3 ">
+                <!-- <% for(let img of picnicspot.images ) {%> 
+                <img src="<%=img.slideShow  %>" class="card-img-top" alt="..." />
+                <% } %>  -->
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <%=picnicspot.title %>
+                    </h5>
+                    <p class="card-text">
+                        <%=picnicspot.description %>
+                    </p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-muted">
+                        <%=picnicspot.location %>
+                    </li>
+                    <li class="list-group-item ">
+                        Submitted by  <a class="text-success" href="/users/<%=picnicspot.author._id%> "><%=picnicspot.author.username %></a> 
+                    </li>
+                    <li class="list-group-item">₹ <%=picnicspot.price %>/day</li>
+                </ul>
+                <% if(currentUser && picnicspot.author.equals(currentUser._id)){ %>
+                    <div class="card-body">
+                        <a href="/picnicspots/<%=picnicspot._id%>/edit" class="card-link btn btn-info">Edit</a>
+                        <form class="d-inline" action="/picnicspots/<%= picnicspot._id %>?_method=Delete" method="post">
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                    <% } %>
+                        <div class="card-footer text-muted">2 days ago</div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-10 col-sm-12 col-12 ">
+            <div id='map'  class="mb-3"></div>
+            <% if(currentUser){ %>
+                <h2>Leave a Review</h2>
+                <p id="status" class="d-none my-0 text-danger failed-shake">Please Select a rating.</p>
+                <form action="/picnicspots/<%=picnicspot._id%>/reviews" method="post" class="mb-3 validated-form reviewForm"
+                    novalidate>
+                    <!-- <div class="mb-3">
+                        <label class="form-label" for="rating">Rating</label>
+                        <input class="form-range" type="range" min="1" max="5" name="review[rating]" id="rating" />
+                    </div> -->
+                    <fieldset class="starability-checkmark">
+                        <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+                  
+                        <input type="radio" id="rate1" name="review[rating]" value="1" />
+                        <label for="rate1">1 star.</label>
+                  
+                        <input type="radio" id="rate2" name="review[rating]" value="2" />
+                        <label for="rate2">2 stars.</label>
+                  
+                        <input type="radio" id="rate3" name="review[rating]" value="3" />
+                        <label for="rate3">3 stars.</label>
+                  
+                        <input type="radio" id="rate4" name="review[rating]" value="4" />
+                        <label for="rate4">4 stars.</label>
+                  
+                        <input type="radio" id="rate5" name="review[rating]" value="5" />
+                        <label for="rate5">5 stars.</label>
+                  
+                        <span class="starability-focus-ring"></span>
+                      </fieldset>
+                      
+                    <div class="mb-3">
+                        <label class="form-label" for="body">Review</label>
+                        <textarea class="form-control" name="review[body]" id="body" cols="30" rows="3"
+                            required></textarea>
+                        <div class="valid-feedback">Looks good!</div>
+                    </div>
+                    <button class="btn btn-success  reviewSubmitButton" >Submit</button>
+
+                    <script>
+                        const reviewForm = document.querySelector(".reviewForm");
+                        const reviewStatus = document.querySelector("#status");
+                        const reviewSubmitButton = document.querySelector(".reviewSubmitButton")
+                        console.log('reviewSubmitButton****',  reviewSubmitButton); 
+
+                        const defaultStarRating = document.querySelector('input[name="review[rating]"]');
+                        if(reviewForm){
+                            reviewForm.addEventListener("submit", event=>{
+                                if(defaultStarRating.checked){
+                                    reviewStatus.classList.remove("d-none")
+                                    reviewSubmitButton.classList.add("failed-shake")
+                                    reviewSubmitButton.classList.remove("btn-success")
+                                    reviewSubmitButton.classList.add("btn-danger")
+
+
+                                    event.preventDefault();
+                                }
+                                else{
+                                    reviewStatus.classList.add("d-none")
+                                    reviewSubmitButton.classList.remove("failed-shake")
+                                }
+                            })
+                        }
+
+
+                        
+                      </script>
+
+
+                </form>
+                <% } %>
+                    <% for(let review of picnicspot.reviews){%>
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <% console.log('review**********', review) %> 
+                                <h5 class="card-title"><a href="/users/<%=review.author._id%>"><%= review.author.username %></a>
+                                </h5>
+                                <p class="starability-result" data-rating= <%= review.rating %> >
+                                    Rated: <%= review.rating %> stars
+                                </p>
+                                <p class="card-text ">Review: <%= review.body %>
+                                </p>
+
+                                <% if(currentUser &&review.author.equals(currentUser._id)) {%>
+
+                                    <form
+                                        action="/picnicspots/<%=picnicspot._id%>/reviews/<%= review._id %>?_method=Delete"
+                                        method="post">
+                                        <button class="btn btn-sm btn-danger">Delete</button>
+                                    </form>
+                                    <% } %>
+                            </div>
+                        </div>
+                        <% } %>
+        </div>
+
+    </div>
+
+    <footer class="mb-3">
+        <a href="/picnicspots">All Picnicspots</a>
+    </footer>
+
+    <script>
+        mapToken = '<%-process.env.MAPBOX_TOKEN%>';
+        const picnicspot = <%-JSON.stringify(picnicspot)%>
+    </script>
+
+    <script src="/javascripts/showPageMap.js">
+        </script>
