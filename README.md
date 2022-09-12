@@ -5,7 +5,7 @@ made by Colt Steele.
 
 By Building this application i have gotten better understanding of how to put a Database (most particularly MongoDB) in your web application.
 
-## Technologies Used:-
+### Technologies Used:-
 
 1. NodeJS
 2. Express
@@ -13,5 +13,5 @@ By Building this application i have gotten better understanding of how to put a 
 4. MongoDB 
 5. Bootstrap
 
-## I like to thank Mr. Colt Steele for creating such a wonderful course which makes it very easy to understand the Complex concepts in web development.
+### I like to thank Mr. Colt Steele for creating such a wonderful course which makes it very easy to understand the Complex concepts in web development.
 
