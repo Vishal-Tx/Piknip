@@ -31,7 +31,7 @@ exports.createPicnicspot = async (req, res, next) => {
   console.log('geoData.body.features.context', geoData.body.features[0].context);
   console.log('geoData.body.features.geometry.coordinates', geoData.body.features[0].geometry.coordinates);
   // res.send("ok")
-
+ 
 
   const picnicspot = new PicnicSpot(req.body.picnicspot);
   picnicspot.geometry = geoData.body.features[0].geometry;
