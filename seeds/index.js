@@ -1,9 +1,10 @@
+require('dotenv').config()
 const mongoose = require('mongoose');
 const cities = require("./cities");
 const { places, descriptors } = require('./seedHelpers');
 const PicnicSpot = require("../models/picnicspot.js");
 
-mongoose.connect("mongodb://localhost:27017/pik-nip", {
+mongoose.connect(process.env.DB_URL || "mongodb://localhost:27017/pik-nip", {
 
     useUnifiedTopology: true
 });
@@ -24,7 +25,7 @@ const seedDB = async () => {
         const randomcity = Math.floor(Math.random() * 406)
         const price = Math.floor(Math.random() * 200) + 10;
         const p = new PicnicSpot({
-            author: "62d4319a12ad61477bb7f421",
+            author: "63319d4b2b80780e11cd3484",
             location: `${cities[randomcity].city}, ${cities[randomcity].state}`,
             title: `${sample(descriptors)} ${sample(places)}`,
             description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quis pariatur voluptatibus sint consequuntur? Nostrum maxime, corrupti ea sequi corporis possimus ad aliquid id vel facilis, quidem repellat tempore dolorum voluptatibus.",
@@ -52,4 +53,5 @@ const seedDB = async () => {
 
 }
 
-seedDB();
+seedDB()
+.then(console.log("Database seeded"));
