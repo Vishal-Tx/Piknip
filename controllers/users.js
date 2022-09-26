@@ -21,8 +21,8 @@ exports.register = async (req, res) => {
 
   if (!req.file) {
     user.avatar = {
-      url: 'https://res.cloudinary.com/dzmbgzot8/image/upload/v1657975309/Piknip/UserAvatar/wjvywrescb3inqwvcmdn.png',
-      filename: 'Piknip/UserAvatar/wjvywrescb3inqwvcmdn',
+      url: 'https://res.cloudinary.com/dzmbgzot8/image/upload/v1657975309/Piknip/UserAvatar/ckrieva6djf7lz77pzgt.png',
+      filename: 'Piknip/UserAvatar/ckrieva6djf7lz77pzgt',
     }
   }
   else {
