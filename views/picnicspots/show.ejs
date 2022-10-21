@@ -177,8 +177,8 @@
         </footer>
 
         <script>
-            mapToken = '<%-process.env.MAPBOX_TOKEN%>';
-            const picnicspot = <% -JSON.stringify(picnicspot) %>
+            const mapToken = '<%-process.env.MAPBOX_TOKEN%>'
+            let picnicspot = <%-JSON.stringify(picnicspot)%>
         </script>
 
         <script src="/javascripts/showPageMap.js">

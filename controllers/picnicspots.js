@@ -16,7 +16,7 @@ exports.renderNewForm = (req, res) => {
 };
 
 exports.createPicnicspot = async (req, res, next) => {
-  // console.log('req.body.picnicspot=', req.body.picnicspot);
+  console.log("req.body.picnicspot=", req.body);
   // console.log('req.user=', req.user)
 
   // if(!req.body.picnicspot) throw new ExpressError("Invalid Picnicspot Data", 400)
