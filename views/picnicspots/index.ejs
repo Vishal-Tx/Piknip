@@ -1,17 +1,29 @@
 <% layout("layouts/boilerplate") %>
-<div id="cluster-map" ></div>
-  <h1>All PicnicSpots!</h1>
+  <div id="cluster-map"></div>
+  <div class="d-flex justify-content-between mt-4">
+    <h1>All PicnicSpots!</h1>
+    <form class="row m-0 p-0" action="picnicspots/searchItem/search" method="post">
+      <div class="col-auto m-0 p-0">
+        <input type="search" class="form-control search-bar" name="searchQuery" placeholder="Search">
+      </div>
+      <div class="col-auto m-0 p-0">
+        <button type="submit" class="btn btn-light mb-3">&#x1F50E</button>
+      </div>
+    </form>
 
+  </div>
   <% for(let picnicspot of picnicspots){%>
     <div class="card mb-3">
-      <div class="row g-5">
+      <div class="row g-2">
         <div class="col-md-4">
-<% if(picnicspot.images.length){ %> 
-          <img src="<%= picnicspot.images[0].url %> " class="img-fluid rounded-start" alt="..." style="height: 250px; width:100%">
-          <% }else{ %> 
-            <img src="https://res.cloudinary.com/dzmbgzot8/image/upload/v1657994985/Piknip/i8xjmbdd9ntzdz5kjvaj.jpg " class="img-fluid rounded-start" alt="..." style="height: 250px; width:100%">
-          <% } %> 
-            
+          <% if(picnicspot.images.length){ %>
+            <img src="<%= picnicspot.images[0].url %> " class="img-fluid rounded-start" alt="..."
+              style="height: 250px; width:100%">
+            <% }else{ %>
+              <img src="https://res.cloudinary.com/dzmbgzot8/image/upload/v1657994985/Piknip/i8xjmbdd9ntzdz5kjvaj.jpg "
+                class="img-fluid rounded-start" alt="..." style="height: 250px; width:100%">
+              <% } %>
+
 
         </div>
         <div class="col-md-8">
@@ -34,11 +46,16 @@
 
     <% } %>
 
-    <script>
-     const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
-      const picnicspots = {features: <%- JSON.stringify(picnicspots) %>}
-    
-  </script>
+      <script>
 
 
-    <script src="/javascripts/clusterMap.js"></script>
+        const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
+        const picnicspots = { features: <%-JSON.stringify(picnicspots)%>}
+            // const searchQuery = [];
+
+
+      </script>
+
+
+      <script src="/javascripts/clusterMap.js"></script>
+      <script src="/javascripts/events.js"></script>

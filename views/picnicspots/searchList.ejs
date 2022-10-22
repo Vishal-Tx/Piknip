@@ -1,0 +1,45 @@
+<% layout("layouts/boilerplate") %>
+    <div>
+        <h1>
+            <%= query.searchQuery %>
+        </h1>
+        <% if(picnicspots.length){ %>
+            <% for(let picnicspot of picnicspots){%>
+                <div class="card mb-3">
+                    <div class="row g-2">
+                        <div class="col-md-4">
+                            <% if(picnicspot.images.length){ %>
+                                <img src="<%= picnicspot.images[0].url %> " class="img-fluid rounded-start" alt="..."
+                                    style="height: 250px; width:100%">
+                                <% }else{ %>
+                                    <img src="https://res.cloudinary.com/dzmbgzot8/image/upload/v1657994985/Piknip/i8xjmbdd9ntzdz5kjvaj.jpg "
+                                        class="img-fluid rounded-start" alt="..." style="height: 250px; width:100%">
+                                    <% } %>
+
+
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <%= picnicspot.title %>
+                                </h5>
+                                <p class="card-text">
+                                    <%= picnicspot.description %>
+                                </p>
+                                <p class="card-text"><small class="text-muted">
+                                        <%= picnicspot.location %>
+                                    </small></p>
+                                <a href="/picnicspots/<%= picnicspot.id %>" class="btn btn-secondary">view
+                                    <%=picnicspot.title%>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% } }else{ %>
+                    <h5 class="text-muted mt-4">None Available...</h5>
+                    <a href="/picnicspots">
+                        Go Back</a>
+
+                    <% } %>
+    </div>

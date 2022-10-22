@@ -11,6 +11,18 @@ exports.index = async (req, res) => {
   // console.log(PicnicSpot);
 };
 
+exports.searchPicnicspot = async (req, res) => {
+  const query = req.body;
+  const searchTitle = query.searchQuery;
+
+  console.log("seatchTitle", typeof searchTitle, searchTitle);
+  const picnicspots = await PicnicSpot.find({
+    title: { $regex: searchTitle, $options: "i" },
+  });
+  // console.log("picnicspots", picnicspots);
+  res.render("picnicspots/searchList", { query, picnicspots });
+};
+
 exports.renderNewForm = (req, res) => {
   res.render("picnicspots/new");
 };
